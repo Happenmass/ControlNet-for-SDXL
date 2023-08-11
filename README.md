@@ -41,7 +41,7 @@ In Stable diffusion XL, there are only 3 Encoder blocks, so  the above simple st
 
 ## Generate SDXL + ControlNet
 
-    python tool_add_controlnet.py --model sd_xl --controlnet --output sd_xl_controlnet
+    python tool_add_controlXL.py ./models/sd_xl_base_1.0.ckpt ./models/control_sdxl_ini.ckpt
 
 ## Inference Example
 
