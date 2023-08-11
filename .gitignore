@@ -1,7 +1,7 @@
 .idea/
 
 training/
-train/
+#train/
 lightning_logs/
 image_log/
 
@@ -87,7 +87,7 @@ instance/
 docs/_build/
 
 # PyBuilder
-target/
+#target/
 
 # Jupyter Notebook
 .ipynb_checkpoints
@@ -144,5 +144,4 @@ dmypy.json
 .pyre/
 
 #test img
-*.png
-*.jpg
+
