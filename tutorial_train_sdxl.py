@@ -27,8 +27,7 @@ model.sd_locked = sd_locked
 model.only_mid_control = only_mid_control
 sampler, num_rows, num_cols = init_sampling(stage2strength=None)
 model.sampler = sampler
-model.model.half()
-model.control_model.half()
+
 
 # Misc
 dataset = SDXLDataset()

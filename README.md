@@ -1,4 +1,4 @@
-# ControlNet
+# ControlNet for Stable Diffusion XL
 
 Modified from original repo of controlnet https://github.com/lllyasviel/ControlNet
 
@@ -13,7 +13,9 @@ The "trainable" one learns your condition. The "locked" one preserves your model
 No constructure change has been made in controleNet
 
 ## Device Requirements
-All params need to be trained is about 2.6B, it is tested that at least 32GB GPU memory needed to train the model.
+All params need to be trained is about 2.6B, so you may need a GPU with at least 32G memory.
+
+It's not working on my RTX3090, I'm testing the training code on a A10
 
 
 # Stable Diffusion + ControlNet
@@ -27,30 +29,24 @@ In Stable diffusion XL, there are only 3 Encoder blocks, so  the above simple st
 
 
 
-# Production-Ready Pretrained Models
-
-First create a new conda environment
+## First create a new conda environment
 
     conda env create -f environment.yaml
     conda activate control
 
+## Convert safetensors to ckpt
+    
+    python safetensor2ckpt.py sd_xl_base_1.0.safetensors
+    or any location you put the safetensors
 
 ## Generate SDXL + ControlNet
 
     python tool_add_controlnet.py --model sd_xl --controlnet --output sd_xl_controlnet
 
+## Inference Example
 
+    python sdxl_inference.py --model sd_xl_controlnet --input input.png --output output.png
 
-# Annotate Your Own Data
-
-We provide simple python scripts to process images.
-
-[See a gradio example here](docs/annotator.md).
-
-# Train with Your Own Data
-
-Training a ControlNet is as easy as (or even easier than) training a simple pix2pix. 
-
-[See the steps here](docs/train.md).
+inference example seems work correctly
 
 
