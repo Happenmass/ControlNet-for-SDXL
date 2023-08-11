@@ -524,7 +524,7 @@ class ControlLDM(DiffusionEngine):
     def get_input(self, batch):
         # assuming unified data format, dataloader returns a dict.
         # image tensors should be scaled to -1 ... 1 and in bchw format
-        return batch[self.input_key]
+        return batch[self.input_key], batch[self.control_key]
 
     def forward(self, x, batch):
         loss = self.loss_fn(self.model, self.denoiser, self.conditioner, x, batch[self.control_key], batch, self.control_model, self.control_scales, self.only_mid_control)
@@ -537,7 +537,7 @@ class ControlLDM(DiffusionEngine):
     #     print("start backward")
     #     loss.backward()
     def shared_step(self, batch: Dict) -> Any:
-        x = self.get_input(batch)
+        x = self.get_input(batch)[0]
 
         # save x for visualization
         # x_copy = x.detach().clone()
@@ -655,7 +655,6 @@ class ControlLDM(DiffusionEngine):
         log = dict()
 
         x, hint = self.get_input(batch)
-        batch.pop(self.control_key)
 
         c, uc = self.conditioner.get_unconditional_conditioning(
             batch,
@@ -681,7 +680,7 @@ class ControlLDM(DiffusionEngine):
         if sample:
             with self.ema_scope("Plotting"):
                 samples = self.sample(
-                    c, shape=z.shape[1:], hint=hint, uc=uc, batch_size=N, **sampling_kwargs
+                    c, shape=z.shape, hint=hint, uc=uc, batch_size=N, **sampling_kwargs
                 )
             samples = self.decode_first_stage(samples)
             log["samples"] = samples
