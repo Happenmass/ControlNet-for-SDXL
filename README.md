@@ -45,7 +45,7 @@ In Stable diffusion XL, there are only 3 Encoder blocks, so  the above simple st
 
 ## Inference Example
 
-    python sdxl_inference.py --model sd_xl_controlnet --input input.png --output output.png
+    python sdxl_inference.py
 
 inference example seems work correctly
 
